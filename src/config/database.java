@@ -22,6 +22,7 @@ public class database {
         } catch (SQLException ex) {
             System.out.println("Gagal koneksi database, Error : " + ex.getMessage());
         }
+        
         return conn;
     }
 }

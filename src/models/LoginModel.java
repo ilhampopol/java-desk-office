@@ -1,4 +1,4 @@
-package Model;
+package models;
 
 import config.database;
 import java.sql.Connection;

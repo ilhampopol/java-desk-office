@@ -1,10 +1,10 @@
-package Controller;
+package controllers;
 
-import Model.LoginModel;
+import models.LoginModel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class LoginController {
+public class Login {
 
     public boolean authenticateUser(String inputUsername, String inputPassword) {
         ResultSet resultSet = LoginModel.getUser(inputUsername, inputPassword);
