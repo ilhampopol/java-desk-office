@@ -19,27 +19,19 @@ class main_menu extends javax.swing.JFrame {
         btnCabang = new javax.swing.JButton();
         btnAbsensi = new javax.swing.JButton();
         btnMutasi = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        menuLogout = new javax.swing.JMenu();
+        btnLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Main Menu");
+        setPreferredSize(new java.awt.Dimension(800, 560));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBackground(new java.awt.Color(41, 128, 185));
 
-        btnKaryawan.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnKaryawan.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        btnKaryawan.setBackground(new java.awt.Color(26, 188, 156));
+        btnKaryawan.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        btnKaryawan.setForeground(new java.awt.Color(255, 255, 255));
         btnKaryawan.setText("Karyawan");
+        btnKaryawan.setBorder(null);
         btnKaryawan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnKaryawan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -47,9 +39,11 @@ class main_menu extends javax.swing.JFrame {
             }
         });
 
-        btnJabatan.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnJabatan.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        btnJabatan.setBackground(new java.awt.Color(26, 188, 156));
+        btnJabatan.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        btnJabatan.setForeground(new java.awt.Color(255, 255, 255));
         btnJabatan.setText("Jabatan");
+        btnJabatan.setBorder(null);
         btnJabatan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnJabatan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,9 +51,11 @@ class main_menu extends javax.swing.JFrame {
             }
         });
 
-        btnCuti.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnCuti.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        btnCuti.setBackground(new java.awt.Color(26, 188, 156));
+        btnCuti.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        btnCuti.setForeground(new java.awt.Color(255, 255, 255));
         btnCuti.setText("Cuti");
+        btnCuti.setBorder(null);
         btnCuti.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCuti.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,9 +63,11 @@ class main_menu extends javax.swing.JFrame {
             }
         });
 
-        btnCabang.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnCabang.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        btnCabang.setBackground(new java.awt.Color(26, 188, 156));
+        btnCabang.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        btnCabang.setForeground(new java.awt.Color(255, 255, 255));
         btnCabang.setText("Cabang");
+        btnCabang.setBorder(null);
         btnCabang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCabang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,9 +75,11 @@ class main_menu extends javax.swing.JFrame {
             }
         });
 
-        btnAbsensi.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnAbsensi.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        btnAbsensi.setBackground(new java.awt.Color(26, 188, 156));
+        btnAbsensi.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        btnAbsensi.setForeground(new java.awt.Color(255, 255, 255));
         btnAbsensi.setText("Absensi");
+        btnAbsensi.setBorder(null);
         btnAbsensi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAbsensi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,9 +87,11 @@ class main_menu extends javax.swing.JFrame {
             }
         });
 
-        btnMutasi.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnMutasi.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
+        btnMutasi.setBackground(new java.awt.Color(26, 188, 156));
+        btnMutasi.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
+        btnMutasi.setForeground(new java.awt.Color(255, 255, 255));
         btnMutasi.setText("Mutasi");
+        btnMutasi.setBorder(null);
         btnMutasi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMutasi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,89 +104,69 @@ class main_menu extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAbsensi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCuti, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCabang, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(120, 120, 120))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAbsensi, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCuti, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCabang, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(50, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCuti, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCabang, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(60, 60, 60)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAbsensi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(btnKaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnJabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnCuti, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnCabang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnAbsensi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(btnMutasi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("Kelompok 2");
-
-        jMenuItem1.setText("Ilham Muharam Rivai - 202143500929");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("Ahmad Fuady - 202143500853");
-        jMenu1.add(jMenuItem2);
-
-        jMenuItem3.setText("Zefri Andi - 202143500872");
-        jMenu1.add(jMenuItem3);
-
-        jMenuItem4.setText("Yonatan Silvester - 202143500944");
-        jMenu1.add(jMenuItem4);
-
-        jMenuItem5.setText("Muhammad Rijal Ma'arif - 202143500931");
-        jMenu1.add(jMenuItem5);
-
-        jMenuItem6.setText("Renaldi Fitra Budiman - 202143500933");
-        jMenu1.add(jMenuItem6);
-
-        jMenuItem7.setText("Firdiansyah - 202143500859");
-        jMenu1.add(jMenuItem7);
-
-        jMenuItem8.setText("Ardho Tillah Pratama Sidik - 202143500899");
-        jMenu1.add(jMenuItem8);
-
-        jMenuBar1.add(jMenu1);
-
-        menuLogout.setText("Logout");
-        menuLogout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuLogoutMouseClicked(evt);
+        btnLogout.setBackground(new java.awt.Color(26, 188, 156));
+        btnLogout.setFont(new java.awt.Font("Open Sans", 1, 12)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
+        btnLogout.setText("Logout");
+        btnLogout.setBorder(null);
+        btnLogout.setPreferredSize(new java.awt.Dimension(80, 25));
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
             }
         });
-        jMenuBar1.add(menuLogout);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 364, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -200,7 +182,11 @@ class main_menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnKaryawanActionPerformed
 
     private void btnJabatanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJabatanActionPerformed
+        jabatan formJabatan = new jabatan();
 
+        this.dispose();
+
+        formJabatan.setVisible(true);
     }//GEN-LAST:event_btnJabatanActionPerformed
 
     private void btnCutiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCutiActionPerformed
@@ -219,7 +205,7 @@ class main_menu extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnMutasiActionPerformed
 
-    private void menuLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuLogoutMouseClicked
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         int choice = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Logout", JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
@@ -227,11 +213,8 @@ class main_menu extends javax.swing.JFrame {
 
             login formLogin = new login();
             formLogin.setVisible(true);
-        } else {
-            // Jika pengguna membatalkan logout, tambahkan kode yang sesuai di sini
-            System.out.println("Logout dibatalkan.");
         }
-    }//GEN-LAST:event_menuLogoutMouseClicked
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -246,6 +229,7 @@ class main_menu extends javax.swing.JFrame {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
+            new main_menu().setVisible(true);
         });
     }
 
@@ -255,18 +239,8 @@ class main_menu extends javax.swing.JFrame {
     private javax.swing.JButton btnCuti;
     private javax.swing.JButton btnJabatan;
     private javax.swing.JButton btnKaryawan;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnMutasi;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JMenu menuLogout;
     // End of variables declaration//GEN-END:variables
 }

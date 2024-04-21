@@ -3,6 +3,7 @@ package views;
 import controllers.Core;
 import controllers.Employee;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,7 +14,7 @@ public class karyawan extends javax.swing.JFrame {
     DefaultTableModel tableModel;
 
     private void dataTable() {
-        Object[] columnNames = {"ID", "Nama", "Alamat", "No.HP", "Jenis Kelamin", "Jabatan", "Divisi", "Cabang"};
+        Object[] columnNames = {"ID", "Nama", "Alamat", "No.HP", "Jenis Kelamin", "Jabatan", "Divisi", "Cabang", "Status"};
         tableModel = new DefaultTableModel(null, columnNames);
         tableEmployee.setModel(tableModel);
 
@@ -22,18 +23,25 @@ public class karyawan extends javax.swing.JFrame {
         for (String[] rowData : employeeData) {
             tableModel.addRow(rowData);
         }
-
-        // Mengatur kolom ID menjadi tersembunyi
-        int columnIndex = 0; // Kolom ID
-        tableEmployee.getColumnModel().getColumn(columnIndex).setMinWidth(0);
-        tableEmployee.getColumnModel().getColumn(columnIndex).setMaxWidth(0);
-        tableEmployee.getColumnModel().getColumn(columnIndex).setWidth(0);
     }
 
     public karyawan() {
         initComponents();
+
+        // membuat tampilan frame menjadi fullscreen
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // munculkan data pada table
         dataTable();
-        core.emptyInput(inputID, inputName, inputPhoneNumber);
+
+        // set id pada inputan dengan nilai yang sudah ditentukan
+        inputID.setText(employee.lastEmployeeID());
+
+        core.populateComboBox(comboOccupation, "SELECT id, name FROM occupation");
+        core.populateComboBox(comboDepartment, "SELECT id, name FROM department");
+        core.populateComboBox(comboBranch, "SELECT id, name FROM branch");
+
+        core.emptyInput(inputName, inputPhoneNumber);
         core.emptyInputArea(inputAddress);
         core.emptyCombo(comboBranch, comboDepartment, comboGender, comboOccupation);
     }
@@ -67,6 +75,7 @@ public class karyawan extends javax.swing.JFrame {
         btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         inputID = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         group2 = new javax.swing.JMenu();
@@ -90,7 +99,7 @@ public class karyawan extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Karyawan");
+        jLabel1.setText("Data Karyawan");
 
         jLabel9.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         jLabel9.setText("Nama");
@@ -119,7 +128,6 @@ public class karyawan extends javax.swing.JFrame {
         comboGender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         comboOccupation.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        comboOccupation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Staf", "Supervisi", "Kepala Divisi", "Manajer", "Direktur" }));
         comboOccupation.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         comboOccupation.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
@@ -133,29 +141,27 @@ public class karyawan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(inputAddress);
 
         comboDepartment.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        comboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Accounting", "Finance", "Internal Audit", "Human Resource", "General Affair", "Operation", "Merchandiser", "Warehouse", "Information Technology" }));
         comboDepartment.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         comboDepartment.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         comboBranch.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
-        comboBranch.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi", "Serang", "Bandung", "Jogjakarta", "Semarang", "Surabaya" }));
         comboBranch.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         comboBranch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         tableEmployee.setFont(new java.awt.Font("Leelawadee UI", 0, 12)); // NOI18N
         tableEmployee.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nama", "Alamat", "No. HP", "Jenis Kelamin", "Jabatan", "Divisi", "Cabang"
+                "ID", "Nama", "Alamat", "No. HP", "Jenis Kelamin", "Jabatan", "Divisi", "Cabang", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -173,7 +179,7 @@ public class karyawan extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tableEmployee);
 
         btnSave.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnSave.setText("Save");
+        btnSave.setText("Simpan");
         btnSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,7 +188,7 @@ public class karyawan extends javax.swing.JFrame {
         });
 
         btnEdit.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnEdit.setText("Edit");
+        btnEdit.setText("Ubah");
         btnEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +197,7 @@ public class karyawan extends javax.swing.JFrame {
         });
 
         btnDelete.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.default.focusedBackground"));
-        btnDelete.setText("Delete");
+        btnDelete.setText("Hapus");
         btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,7 +205,7 @@ public class karyawan extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setText("<< Back To Main Menu");
+        btnBack.setText("<< Kembali ke Menu Utama");
         btnBack.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -209,7 +215,7 @@ public class karyawan extends javax.swing.JFrame {
         });
 
         btnClear.setBackground(new java.awt.Color(204, 204, 204));
-        btnClear.setText("Clear All");
+        btnClear.setText("Bersihkan");
         btnClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -217,131 +223,121 @@ public class karyawan extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
+        jLabel16.setText("ID");
+
         inputID.setEditable(false);
-        inputID.setBackground(new java.awt.Color(255, 255, 255));
-        inputID.setForeground(new java.awt.Color(255, 255, 255));
-        inputID.setAutoscrolls(false);
-        inputID.setBorder(null);
-        inputID.setCaretColor(new java.awt.Color(255, 255, 255));
-        inputID.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        inputID.setEnabled(false);
-        inputID.setFocusable(false);
-        inputID.setHighlighter(null);
-        inputID.setRequestFocusEnabled(false);
-        inputID.setSelectionColor(new java.awt.Color(255, 255, 255));
-        inputID.setVerifyInputWhenFocusTarget(false);
+        inputID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        inputID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        inputID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel10))
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(inputPhoneNumber)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(inputName)))
-                            .addComponent(btnBack, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnDelete)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnClear))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addGap(67, 67, 67)
-                                        .addComponent(comboDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel10))
+                                        .addGap(56, 56, 56)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                                            .addComponent(inputName, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(inputPhoneNumber)))
+                                    .addComponent(jLabel9))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel12)
+                                            .addComponent(jLabel13))
                                         .addGap(18, 18, 18)
-                                        .addComponent(comboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel13)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(comboOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(194, 194, 194)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(comboGender, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLabel16)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel14)
+                                            .addComponent(jLabel15))
+                                        .addGap(52, 52, 52)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(comboBranch, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(comboDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(314, 314, 314)
-                    .addComponent(jLabel15)
-                    .addGap(18, 18, 18)
-                    .addComponent(comboBranch, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(20, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inputName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(comboGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16)
+                    .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(53, 53, 53)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel11)
-                            .addComponent(inputPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(comboGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel13)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel14)
-                            .addComponent(comboDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(comboDepartment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(11, 11, 11)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(inputPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel15)
+                                    .addComponent(comboBranch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnDelete)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnSave)
+                                .addComponent(btnEdit)
+                                .addComponent(btnClear))))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSave)
-                    .addComponent(btnEdit)
-                    .addComponent(btnDelete)
-                    .addComponent(btnClear))
                 .addGap(18, 18, 18)
                 .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(238, 238, 238)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel15)
-                        .addComponent(comboBranch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(459, Short.MAX_VALUE)))
         );
 
         group2.setText("Kelompok 2");
@@ -388,14 +384,14 @@ public class karyawan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 897, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 665, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 685, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -416,14 +412,24 @@ public class karyawan extends javax.swing.JFrame {
     }//GEN-LAST:event_menuLogoutMouseClicked
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        if (inputName.getText().isEmpty()
+                || inputAddress.getText().isEmpty()
+                || inputPhoneNumber.getText().isEmpty()
+                || comboGender.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan, masih ada field kosong.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         // Memanggil metode addEmployee untuk menambahkan data karyawan
-        boolean isSuccess = employee.addEmployee(
+        boolean isSuccess;
+        isSuccess = employee.addEmployee(
+                inputID.getText(),
                 inputName.getText(),
                 inputAddress.getText(),
                 inputPhoneNumber.getText(),
                 comboGender.getSelectedItem().toString(),
-                comboOccupation.getSelectedItem().toString(),
-                comboDepartment.getSelectedItem().toString(),
+                comboOccupation.getSelectedIndex(),
+                comboDepartment.getSelectedIndex(),
                 comboBranch.getSelectedItem().toString()
         );
 
@@ -448,15 +454,24 @@ public class karyawan extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        // Memanggil metode updateEmployee untuk mengubah data karyawan
-        boolean isSuccess = employee.updateEmployee(
-                Integer.parseInt(inputID.getText()),
+        if (inputName.getText().isEmpty()
+                || inputAddress.getText().isEmpty()
+                || inputPhoneNumber.getText().isEmpty()
+                || comboGender.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan, masih ada field kosong.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Memanggil metode addEmployee untuk menambahkan data karyawan
+        boolean isSuccess;
+        isSuccess = employee.addEmployee(
+                inputID.getText(),
                 inputName.getText(),
                 inputAddress.getText(),
                 inputPhoneNumber.getText(),
                 comboGender.getSelectedItem().toString(),
-                comboOccupation.getSelectedItem().toString(),
-                comboDepartment.getSelectedItem().toString(),
+                comboOccupation.getSelectedIndex(),
+                comboDepartment.getSelectedIndex(),
                 comboBranch.getSelectedItem().toString()
         );
 
@@ -516,6 +531,9 @@ public class karyawan extends javax.swing.JFrame {
         String rowData7 = tableModel.getValueAt(bar, 6).toString();
         String rowData8 = tableModel.getValueAt(bar, 7).toString();
 
+        btnSave.setEnabled(false);
+
+        inputID.setText("");
         inputID.setText(rowData1);
         inputName.setText(rowData2);
         inputAddress.setText(rowData3);
@@ -531,6 +549,11 @@ public class karyawan extends javax.swing.JFrame {
         core.emptyInput(inputID, inputName, inputPhoneNumber);
         core.emptyInputArea(inputAddress);
         core.emptyCombo(comboBranch, comboDepartment, comboGender, comboOccupation);
+
+        btnSave.setEnabled(true);
+        
+        // set id pada inputan dengan nilai yang sudah ditentukan
+        inputID.setText(employee.lastEmployeeID());
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -557,6 +580,7 @@ public class karyawan extends javax.swing.JFrame {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
+            new karyawan().setVisible(true);
         });
     }
 
@@ -582,6 +606,7 @@ public class karyawan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

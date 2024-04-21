@@ -7,32 +7,25 @@ public class PasswordHashing {
 
     public static String hashPassword(String password) {
         try {
-            // Buat instance MessageDigest dengan algoritma SHA-256
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            // Buat instance dari MessageDigest dengan algoritma SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            // Update message digest dengan input password
+            md.update(password.getBytes());
+            // Dapatkan hasil dari message digest
+            byte[] byteData = md.digest();
 
-            // Ubah password menjadi byte array
-            byte[] hash = digest.digest(password.getBytes());
-
-            // Konversi byte array menjadi representasi hexadecimal
+            // Konversi byte ke bentuk hexadecimal
             StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
+            for (byte b : byteData) {
                 String hex = Integer.toHexString(0xff & b);
                 if (hex.length() == 1) {
                     hexString.append('0');
                 }
                 hexString.append(hex);
             }
-
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
-            // Handle jika algoritma hashing tidak ditemukan
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-        String password = "kintil";
-        String hashedPassword = hashPassword(password);
-        System.out.println("Hashed password: " + hashedPassword);
     }
 }

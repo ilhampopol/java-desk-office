@@ -3,17 +3,17 @@ package helper;
 public class InputValidator {
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        // Contoh validasi nomor telepon: harus terdiri dari 10 digit dan hanya angka
-        return phoneNumber.matches("\\d{10}");
+        // Contoh validasi nomor telepon: harus terdiri dari 12 digit dan hanya angka
+        return phoneNumber.matches("\\d{12}");
     }
 
-    public static boolean isValidEmail(String email) {
-        // Contoh validasi email menggunakan ekspresi reguler
-        return email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
+    public static boolean isValidUsername(String username) {
+        // Contoh validasi username: harus terdiri dari minimal 5 karakter, hanya huruf dan angka, tanpa spasi
+        return username.matches("[a-zA-Z0-9]{5,}");
     }
 
-    public static boolean isValidAge(int age) {
-        // Contoh validasi usia: harus dalam rentang 18-65 tahun
-        return age >= 18 && age <= 65;
+    public static boolean isValidPassword(String password) {
+        // Contoh validasi password: harus terdiri dari minimal 8 karakter, minimal satu huruf besar, satu huruf kecil, dan satu angka
+        return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
     }
 }
