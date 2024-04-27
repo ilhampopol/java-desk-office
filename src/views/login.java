@@ -14,8 +14,8 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
 
-        Core.addPlaceholder(inputUsername, "Masukkan username");
-        Core.addPlaceholder(inputPassword, "Masukkan password");
+        core.addPlaceholder(inputUsername, "Masukkan username");
+        core.addPlaceholder(inputPassword, "Masukkan password");
 
         btnLogin.requestFocus();
     }
@@ -39,6 +39,7 @@ public class login extends javax.swing.JFrame {
 
         panelLogin.setBackground(new java.awt.Color(52, 152, 219));
 
+        inputPassword.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         inputPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         btnLogin.setBackground(new java.awt.Color(46, 204, 113));
@@ -63,6 +64,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        inputUsername.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         inputUsername.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         labelRegis.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
@@ -114,7 +116,7 @@ public class login extends javax.swing.JFrame {
                     .addComponent(btnLogin))
                 .addGap(18, 18, 18)
                 .addComponent(labelRegis)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -164,8 +166,8 @@ public class login extends javax.swing.JFrame {
             // munculkan pesan kesalahan
             JOptionPane.showMessageDialog(null, "Username atau Password salah!");
 
-            Core.addPlaceholder(inputUsername, "Masukkan username");
-            Core.addPlaceholder(inputPassword, "Masukkan password");
+            core.addPlaceholder(inputUsername, "Masukkan username");
+            core.addPlaceholder(inputPassword, "Masukkan password");
 
             btnLogin.requestFocus();
         }

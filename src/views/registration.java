@@ -8,13 +8,14 @@ import javax.swing.JOptionPane;
 public class registration extends javax.swing.JFrame {
 
     login formLogin = new login();
+    Core core = new Core();
     Auth auth = new Auth();
 
     public registration() {
         initComponents();
 
-        Core.addPlaceholder(inputUsername, "Masukkan username");
-        Core.addPlaceholder(inputPassword, "Masukkan password");
+        core.addPlaceholder(inputUsername, "Masukkan username");
+        core.addPlaceholder(inputPassword, "Masukkan password");
 
         btnConfirm.requestFocus();
     }
@@ -122,19 +123,16 @@ public class registration extends javax.swing.JFrame {
         // Melakukan validasi input username dan password
         if (inputUsername.getText().equals("") || inputPassword.getPassword().equals("")) {
             JOptionPane.showMessageDialog(null, "Username dan Password tidak boleh kosong!");
-            Core.addPlaceholder(inputUsername, "Masukkan username");
-            Core.addPlaceholder(inputPassword, "Masukkan password");
-            return; // Keluar dari method jika username tidak valid
+            core.addPlaceholder(inputUsername, "Masukkan username");
+            core.addPlaceholder(inputPassword, "Masukkan password");
         } else if (!InputValidator.isValidUsername(username)) {
             JOptionPane.showMessageDialog(null, "Username harus terdiri dari minimal 5 karakter, hanya huruf dan angka, tanpa spasi");
-            Core.addPlaceholder(inputUsername, "Masukkan username");
+            core.addPlaceholder(inputUsername, "Masukkan username");
             inputUsername.requestFocus(); // Fokus kembali ke input username
-            return; // Keluar dari method jika username tidak valid
         } else if (!InputValidator.isValidPassword(password)) {
             JOptionPane.showMessageDialog(null, "Password harus terdiri dari minimal 8 karakter, minimal satu huruf besar, satu huruf kecil, dan satu angka");
-            Core.addPlaceholder(inputPassword, "Masukkan password");
+            core.addPlaceholder(inputPassword, "Masukkan password");
             inputPassword.requestFocus(); // Fokus kembali ke input password
-            return; // Keluar dari method jika password tidak valid
         } else {
             if (auth.registerUser(username, password)) {
                 int choice = JOptionPane.showConfirmDialog(null, "Registrasi berhasil, apakah anda ingin kembali ke halaman login?", "Registration Successful", JOptionPane.YES_NO_OPTION);
@@ -146,8 +144,8 @@ public class registration extends javax.swing.JFrame {
                     // Munculkan form Login
                     formLogin.setVisible(true);
                 } else {
-                    Core.addPlaceholder(inputUsername, "Masukkan username");
-                    Core.addPlaceholder(inputPassword, "Masukkan password");
+                    core.addPlaceholder(inputUsername, "Masukkan username");
+                    core.addPlaceholder(inputPassword, "Masukkan password");
 
                     btnConfirm.requestFocus();
                 }

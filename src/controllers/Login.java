@@ -8,16 +8,18 @@ import java.sql.SQLException;
 
 public class Login {
 
-    static Connection db = new database().connect();
+    Connection db = new database().connect();
+    String query;
+    PreparedStatement stmt;
 
     public boolean authenticateUser(String inputUsername, String inputPassword) {
-        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+        query = "SELECT * FROM users WHERE username = ? AND password = ?";
         
         try {
-            PreparedStatement stat = db.prepareStatement(query);
-            stat.setString(1, inputUsername);
-            stat.setString(2, inputPassword);
-            ResultSet resultSet = stat.executeQuery();
+            stmt = db.prepareStatement(query);
+            stmt.setString(1, inputUsername);
+            stmt.setString(2, inputPassword);
+            ResultSet resultSet = stmt.executeQuery();
             return resultSet.next();
         } catch (SQLException e) {
             return false;

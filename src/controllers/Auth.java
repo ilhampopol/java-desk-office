@@ -9,21 +9,23 @@ import javax.swing.JOptionPane;
 
 public class Auth {
 
-    static Connection db = new database().connect();
+    Connection db = new database().connect();
+    PreparedStatement stmt;
+    ResultSet result;
     String query;
 
     public boolean authenticateUser(String inputUsername, String inputPassword) {
         query = "SELECT * FROM users WHERE username = ? AND password = ?";
 
         try {
-            PreparedStatement stat = db.prepareStatement(query);
+            stmt = db.prepareStatement(query);
 
-            stat.setString(1, inputUsername);
-            stat.setString(2, inputPassword);
+            stmt.setString(1, inputUsername);
+            stmt.setString(2, inputPassword);
 
-            ResultSet resultSet = stat.executeQuery();
+            result = stmt.executeQuery();
 
-            return resultSet.next();
+            return result.next();
         } catch (SQLException e) {
             return false;
         }
@@ -35,22 +37,22 @@ public class Auth {
 
         try {
             // Periksa apakah username sudah ada dalam database
-            PreparedStatement checkStmt = db.prepareStatement(queryCheck);
-            checkStmt.setString(1, username);
-            ResultSet resultSet = checkStmt.executeQuery();
+            stmt = db.prepareStatement(queryCheck);
+            stmt.setString(1, username);
+            result = stmt.executeQuery();
 
-            if (resultSet.next()) {
+            if (result.next()) {
                 // Jika username sudah ada, tampilkan pesan kesalahan
                 JOptionPane.showMessageDialog(null, "Username sudah digunakan. Silakan pilih username lain.", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             } else {
                 // Jika username belum ada, lakukan proses pendaftaran
-                PreparedStatement insertStmt = db.prepareStatement(queryInsert);
-                insertStmt.setString(1, username);
-                insertStmt.setString(2, password); // Hash password sebelum disimpan
-                insertStmt.setInt(3, 1); // Misalnya, level akses user
+                stmt = db.prepareStatement(queryInsert);
+                stmt.setString(1, username);
+                stmt.setString(2, password); // Hash password sebelum disimpan
+                stmt.setInt(3, 1); // Misalnya, level akses user
 
-                insertStmt.executeUpdate();
+                stmt.executeUpdate();
                 return true; // Berhasil mendaftar
             }
         } catch (SQLException e) {

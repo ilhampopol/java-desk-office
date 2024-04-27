@@ -12,15 +12,17 @@ import java.util.List;
 
 public class Employee {
 
-    static Connection db = new database().connect();
+    Connection db = new database().connect();
+    PreparedStatement stmt;
+    ResultSet result;
 
     public List<String[]> getAllEmployee() {
         List<String[]> employees = new ArrayList<>();
-        String query = "SELECT e.id,e.name,address,phone_number,gender,o.name AS occupation,d.name AS department,b.name AS branch,status FROM employee AS e JOIN occupation AS o ON e.occ_id = o.id JOIN department AS d ON e.dept_id = d.id JOIN branch as b ON e.branch_id = b.id";
+        String query = "SELECT e.id,e.name,address,phone_number,gender,o.name AS occupation,d.name AS department,b.name AS branch,status FROM employee AS e JOIN occupation AS o ON e.occ_id = o.id JOIN department AS d ON e.dept_id = d.id JOIN branch as b ON e.branch_id = b.id WHERE status = 'AKTIF'";
 
         try {
-            PreparedStatement stmt = db.prepareStatement(query);
-            ResultSet result = stmt.executeQuery();
+            stmt = db.prepareStatement(query);
+            result = stmt.executeQuery();
 
             while (result.next()) {
                 String[] employeeData = new String[9];
@@ -47,8 +49,8 @@ public class Employee {
         String query = "SELECT id FROM employee ORDER BY id DESC LIMIT 1";
 
         try {
-            PreparedStatement stmt = db.prepareStatement(query);
-            ResultSet result = stmt.executeQuery();
+            stmt = db.prepareStatement(query);
+            result = stmt.executeQuery();
 
             // Mengambil tanggal saat ini
             LocalDate currentDate = LocalDate.now();
@@ -80,11 +82,11 @@ public class Employee {
         }
     }
 
-    public boolean addEmployee(String id, String name, String address, String phoneNumber, String gender, int occupation, int department, String branch) {
+    public boolean addEmployee(String id, String name, String address, String phoneNumber, String gender, int occupation, int department, int branch) {
         String query = "INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement stmt = db.prepareStatement(query);
+            stmt = db.prepareStatement(query);
 
             stmt.setString(1, id);
             stmt.setString(2, name);
@@ -93,7 +95,7 @@ public class Employee {
             stmt.setString(5, gender);
             stmt.setInt(6, occupation);
             stmt.setInt(7, department);
-            stmt.setString(8, branch);
+            stmt.setInt(8, branch);
             stmt.setString(9, "AKTIF");
 
             stmt.executeUpdate();
@@ -105,19 +107,19 @@ public class Employee {
         }
     }
 
-    public boolean updateEmployee(int id, String name, String address, String phoneNumber, String gender, int occupation, String department, String branch) {
-        String query = "UPDATE employee SET name = ?, address = ?, phone_number = ?, gender = ?, occupation = ?, department = ?, branch = ? WHERE id =" + id;
+    public boolean updateEmployee(String id, String name, String address, String phoneNumber, String gender, int occupation, int department, int branch) {
+        String query = "UPDATE employee SET name = ?, address = ?, phone_number = ?, gender = ?, occ_id = ?, dept_id = ?, branch_id = ? WHERE id =" + id;
 
         try {
-            PreparedStatement stmt = db.prepareStatement(query);
+            stmt = db.prepareStatement(query);
 
             stmt.setString(1, name);
             stmt.setString(2, address);
             stmt.setString(3, phoneNumber);
             stmt.setString(4, gender);
             stmt.setInt(5, occupation);
-            stmt.setString(6, department);
-            stmt.setString(7, branch);
+            stmt.setInt(6, department);
+            stmt.setInt(7, branch);
 
             stmt.executeUpdate();
 
@@ -128,11 +130,11 @@ public class Employee {
         }
     }
 
-    public boolean deleteEmployee(int id) {
-        String query = "DELETE FROM employee WHERE id = " + id;
+    public boolean deactivateEmployee(String id) {
+        String query = "UPDATE employee SET status = 'NON-AKTIF' WHERE id = " + id;
 
         try {
-            PreparedStatement stmt = db.prepareStatement(query);
+            stmt = db.prepareStatement(query);
 
             stmt.executeUpdate();
 

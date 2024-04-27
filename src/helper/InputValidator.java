@@ -16,4 +16,13 @@ public class InputValidator {
         // Contoh validasi password: harus terdiri dari minimal 8 karakter, minimal satu huruf besar, satu huruf kecil, dan satu angka
         return password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,}$");
     }
+
+    public boolean isValidInput(String... inputs) {
+        for (String input : inputs) {
+            if (!input.matches("^[a-zA-Z]*$")) {
+                return false; // Jika salah satu input tidak memenuhi kondisi, kembalikan false
+            }
+        }
+        return true; // Jika semua input memenuhi kondisi, kembalikan true
+    }
 }
