@@ -189,8 +189,6 @@ public class Core {
 
             return true; // Berhasil memasukkan data
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Gagal menambah data", "Error", JOptionPane.ERROR_MESSAGE);
-            
             System.out.println("Error: " + e.getMessage());
 
             return false; // Gagal memasukkan data

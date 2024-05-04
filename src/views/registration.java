@@ -10,6 +10,7 @@ public class registration extends javax.swing.JFrame {
     login formLogin = new login();
     Core core = new Core();
     Auth auth = new Auth();
+    InputValidator validator = new InputValidator();
 
     public registration() {
         initComponents();
@@ -46,6 +47,7 @@ public class registration extends javax.swing.JFrame {
         btnConfirm.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
         btnConfirm.setForeground(new java.awt.Color(255, 255, 255));
         btnConfirm.setText("Confirm");
+        btnConfirm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);
@@ -116,7 +118,7 @@ public class registration extends javax.swing.JFrame {
     }//GEN-LAST:event_labelLoginMouseClicked
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-// Mengambil inputan dari form Login
+        // Mengambil inputan dari form Login
         String username = inputUsername.getText();
         String password = new String(inputPassword.getPassword()); // Mengubah char[] password menjadi String
 
@@ -125,11 +127,11 @@ public class registration extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Username dan Password tidak boleh kosong!");
             core.addPlaceholder(inputUsername, "Masukkan username");
             core.addPlaceholder(inputPassword, "Masukkan password");
-        } else if (!InputValidator.isValidUsername(username)) {
+        } else if (!validator.isValidUsername(username)) {
             JOptionPane.showMessageDialog(null, "Username harus terdiri dari minimal 5 karakter, hanya huruf dan angka, tanpa spasi");
             core.addPlaceholder(inputUsername, "Masukkan username");
             inputUsername.requestFocus(); // Fokus kembali ke input username
-        } else if (!InputValidator.isValidPassword(password)) {
+        } else if (!validator.isValidPassword(password)) {
             JOptionPane.showMessageDialog(null, "Password harus terdiri dari minimal 8 karakter, minimal satu huruf besar, satu huruf kecil, dan satu angka");
             core.addPlaceholder(inputPassword, "Masukkan password");
             inputPassword.requestFocus(); // Fokus kembali ke input password
