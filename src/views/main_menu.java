@@ -223,16 +223,22 @@ class main_menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCabangActionPerformed
 
     private void btnAbsensiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbsensiActionPerformed
-
+        this.dispose();
+        
+        attendance formAttendance = new attendance();
+        formAttendance.setVisible(true);
     }//GEN-LAST:event_btnAbsensiActionPerformed
 
     private void btnMutasiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMutasiActionPerformed
-
+        this.dispose();
+        
+        mutation formMutation = new mutation();
+        formMutation.setVisible(true);
     }//GEN-LAST:event_btnMutasiActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // Memunculkan konfirmasi logout
-        int choice = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Logout", JOptionPane.YES_NO_OPTION);
+        int choice = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         // Jika user memilih ya, maka akan kembali ke form Login
         if (choice == JOptionPane.YES_OPTION) {

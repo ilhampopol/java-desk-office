@@ -10,17 +10,19 @@ public class occupation extends javax.swing.JFrame {
     Core core = new Core();
     InputValidator validator = new InputValidator();
     DefaultTableModel tableModel = new DefaultTableModel();
+
     Object[] column = {"id", "name"};
     Object[] columnNames = {"ID", "Jabatan"};
-    String query = "SELECT * FROM occupation";
+    String query = "SELECT id,name FROM occupation";
+    boolean isSuccess;
 
     public occupation() {
         initComponents();
 
         core.dataTable(columnNames, column, tableModel, tableOccupation, query);
+        core.addPlaceholder(inputOccupation, "Masukkan jabatan");
 
         inputID.setText(core.lastID("occupation"));
-        core.addPlaceholder(inputOccupation, "Masukkan jabatan");
         btnSave.requestFocus();
     }
 
@@ -38,6 +40,7 @@ public class occupation extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         panelTable = new javax.swing.JPanel();
         scrollPaneOccupation = new javax.swing.JScrollPane();
         tableOccupation = new javax.swing.JTable();
@@ -110,6 +113,19 @@ public class occupation extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setBackground(new java.awt.Color(231, 76, 60));
+        btnDelete.setFont(new java.awt.Font("Open Sans Medium", 0, 14)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("Delete");
+        btnDelete.setBorder(null);
+        btnDelete.setBorderPainted(false);
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInputLayout = new javax.swing.GroupLayout(panelInput);
         panelInput.setLayout(panelInputLayout);
         panelInputLayout.setHorizontalGroup(
@@ -118,25 +134,27 @@ public class occupation extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInputLayout.createSequentialGroup()
-                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelInputLayout.createSequentialGroup()
                         .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelOccupation)
                             .addComponent(labelID))
                         .addGap(18, 18, 18)
                         .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inputID, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
-                            .addComponent(inputOccupation))))
+                            .addComponent(inputID, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                            .addComponent(inputOccupation)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelInputLayout.createSequentialGroup()
+                        .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnClear, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(btnEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(20, 20, 20))
         );
         panelInputLayout.setVerticalGroup(
             panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelInputLayout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(20, 20, 20)
                 .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelID)
                     .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -144,12 +162,15 @@ public class occupation extends javax.swing.JFrame {
                 .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelOccupation)
                     .addComponent(inputOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 119, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         panelTable.setBackground(new java.awt.Color(41, 128, 185));
@@ -195,7 +216,7 @@ public class occupation extends javax.swing.JFrame {
         );
         panelTableLayout.setVerticalGroup(
             panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneOccupation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(scrollPaneOccupation, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         btnBack.setBackground(new java.awt.Color(26, 188, 156));
@@ -258,9 +279,9 @@ public class occupation extends javax.swing.JFrame {
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelInput, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                    .addComponent(panelInput, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                     .addComponent(panelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,7 +311,7 @@ public class occupation extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        int choice = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Konfirmasi Logout", JOptionPane.YES_NO_OPTION);
+        int choice = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin ingin logout?", "Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (choice == JOptionPane.YES_OPTION) {
             this.dispose();
@@ -317,9 +338,10 @@ public class occupation extends javax.swing.JFrame {
         core.dataTable(columnNames, column, tableModel, tableOccupation, query);
 
         inputID.setText(core.lastID("occupation"));
-        
+
         core.addPlaceholder(inputOccupation, "Masukkan jabatan");
         btnSave.requestFocus();
+        btnSave.setEnabled(true);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -333,17 +355,18 @@ public class occupation extends javax.swing.JFrame {
 
         String[] columns = {"name"};
         String[] data = {inputOccupation.getText()};
-        String condition = "id = " + inputID.getText();
+        String condition = "id = '" + inputID.getText() + "'";
         core.updateEntity("occupation", columns, data, condition);
 
-        JOptionPane.showMessageDialog(null, "Data berhasil diubah!", "Successful", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Data berhasil diubah!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
         core.dataTable(columnNames, column, tableModel, tableOccupation, query);
 
         inputID.setText(core.lastID("occupation"));
-        
+
         core.addPlaceholder(inputOccupation, "Masukkan jabatan");
         btnSave.requestFocus();
+        btnSave.setEnabled(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -354,13 +377,13 @@ public class occupation extends javax.swing.JFrame {
 
         btnSave.setEnabled(true);
         btnSave.requestFocus();
-        
+
         core.addPlaceholder(inputOccupation, "Masukkan jabatan");
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void tableOccupationMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOccupationMouseClicked
         core.removePlaceholder(inputOccupation);
-        
+
         int bar = tableOccupation.getSelectedRow();
 
         String rowData1 = tableModel.getValueAt(bar, 0).toString();
@@ -371,6 +394,41 @@ public class occupation extends javax.swing.JFrame {
 
         btnSave.setEnabled(false);
     }//GEN-LAST:event_tableOccupationMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int choice = JOptionPane.showConfirmDialog(null, "Apakah anda yakin akan menghapus data jabatan ini?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            // Memanggil metode deleteEmployee untuk menghapus data karyawan
+            isSuccess = core.deleteEntity("occupation", inputID.getText());
+
+            // Memeriksa apakah penghapusan data berhasil atau tidak
+            if (isSuccess) {
+                // set id pada inputan dengan nilai yang sudah ditentukan
+                inputID.setText(core.lastID("occupation"));
+
+                core.dataTable(columnNames, column, tableModel, tableOccupation, query);
+                core.emptyInput(inputOccupation);
+
+                // Jika berhasil, tampilkan pesan berhasil
+                JOptionPane.showMessageDialog(null, "Data jabatan berhasil dihapus!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                
+                core.addPlaceholder(inputOccupation, "Masukkan jabatan");
+                btnSave.requestFocus();
+                btnSave.setEnabled(true);
+            } else {
+                core.dataTable(columnNames, column, tableModel, tableOccupation, query);
+                core.emptyInput(inputOccupation);
+
+                // Jika gagal, tampilkan pesan gagal
+                JOptionPane.showMessageDialog(null, "Gagal menghapus data jabatan!", "Error", JOptionPane.ERROR_MESSAGE);
+
+                core.addPlaceholder(inputOccupation, "Masukkan jabatan");
+                btnSave.requestFocus();
+                btnSave.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -392,6 +450,7 @@ public class occupation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnSave;

@@ -30,7 +30,7 @@ public class employee extends javax.swing.JFrame {
         core.dataTable(columnNames, column, tableModel, tableEmployee, query);
 
         // set id pada inputan dengan nilai yang sudah ditentukan
-        inputID.setText(employee.lastEmployeeID());
+        inputID.setText("K" + employee.lastEmployeeID());
 
         // Memunculkan data pada combo box
         core.populateComboBox(comboOccupation, "SELECT id, name FROM occupation");
@@ -41,6 +41,9 @@ public class employee extends javax.swing.JFrame {
         core.emptyInput(inputName, inputPhoneNumber);
         core.emptyInputArea(inputAddress);
         core.emptyCombo(comboBranch, comboDepartment, comboOccupation);
+        
+        // Placeholder
+        core.addPlaceholder(inputKeyword, "Cari data karyawan menggunakan ID");
     }
 
     @SuppressWarnings("unchecked")
@@ -72,6 +75,7 @@ public class employee extends javax.swing.JFrame {
         inputID = new javax.swing.JTextField();
         radiobtnMale = new javax.swing.JRadioButton();
         radiobtnFemale = new javax.swing.JRadioButton();
+        btnPrint = new javax.swing.JButton();
         panelTable = new javax.swing.JPanel();
         scrollpaneTableEmployee = new javax.swing.JScrollPane();
         tableEmployee = new javax.swing.JTable();
@@ -203,6 +207,19 @@ public class employee extends javax.swing.JFrame {
         radiobtnFemale.setFont(new java.awt.Font("Open Sans", 0, 12)); // NOI18N
         radiobtnFemale.setText("Perempuan");
 
+        btnPrint.setBackground(new java.awt.Color(230, 126, 34));
+        btnPrint.setFont(new java.awt.Font("Open Sans Medium", 0, 14)); // NOI18N
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
+        btnPrint.setText("Print");
+        btnPrint.setBorder(null);
+        btnPrint.setBorderPainted(false);
+        btnPrint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPrint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrintActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelnputLayout = new javax.swing.GroupLayout(panelnput);
         panelnput.setLayout(panelnputLayout);
         panelnputLayout.setHorizontalGroup(
@@ -210,6 +227,10 @@ public class employee extends javax.swing.JFrame {
             .addGroup(panelnputLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(panelnputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelnputLayout.createSequentialGroup()
+                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelnputLayout.createSequentialGroup()
                         .addGroup(panelnputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelAlamat)
@@ -233,21 +254,19 @@ public class employee extends javax.swing.JFrame {
                                 .addComponent(radiobtnMale)
                                 .addGap(18, 18, 18)
                                 .addComponent(radiobtnFemale)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 49, Short.MAX_VALUE))))
                     .addGroup(panelnputLayout.createSequentialGroup()
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(27, 27, 27))
+                        .addGap(62, 62, 62)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
         );
         panelnputLayout.setVerticalGroup(
             panelnputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelnputLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addGroup(panelnputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelID)
                     .addComponent(inputID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -284,8 +303,11 @@ public class employee extends javax.swing.JFrame {
                 .addGroup(panelnputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelnputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -320,6 +342,9 @@ public class employee extends javax.swing.JFrame {
             }
         });
         scrollpaneTableEmployee.setViewportView(tableEmployee);
+        if (tableEmployee.getColumnModel().getColumnCount() > 0) {
+            tableEmployee.getColumnModel().getColumn(2).setMinWidth(100);
+        }
 
         labelKeyword.setFont(new java.awt.Font("Open Sans Medium", 0, 14)); // NOI18N
         labelKeyword.setForeground(new java.awt.Color(255, 255, 255));
@@ -334,6 +359,11 @@ public class employee extends javax.swing.JFrame {
         btnSearch.setBorder(null);
         btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.setPreferredSize(new java.awt.Dimension(70, 25));
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTableLayout = new javax.swing.GroupLayout(panelTable);
         panelTable.setLayout(panelTableLayout);
@@ -343,12 +373,12 @@ public class employee extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(labelKeyword)
                 .addGap(18, 18, 18)
-                .addComponent(inputKeyword, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE)
+                .addComponent(inputKeyword, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
             .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollpaneTableEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                .addComponent(scrollpaneTableEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 824, Short.MAX_VALUE))
         );
         panelTableLayout.setVerticalGroup(
             panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,11 +388,11 @@ public class employee extends javax.swing.JFrame {
                     .addComponent(labelKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                .addGap(20, 20, 20))
             .addGroup(panelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelTableLayout.createSequentialGroup()
-                    .addComponent(scrollpaneTableEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 93, Short.MAX_VALUE)))
+                    .addComponent(scrollpaneTableEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 79, Short.MAX_VALUE)))
         );
 
         labelTitle.setFont(new java.awt.Font("Open Sans", 1, 24)); // NOI18N
@@ -415,7 +445,7 @@ public class employee extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(mainPanelLayout.createSequentialGroup()
-                        .addComponent(panelnput, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelnput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(panelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(40, 40, 40))
@@ -445,7 +475,9 @@ public class employee extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -468,7 +500,11 @@ public class employee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan, masih ada field kosong.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         } else if (!validator.isValidInput(inputName.getText())) {
-            
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan, field nama tidak boleh dimasukkan selain huruf!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!validator.isValidPhoneNumber(inputPhoneNumber.getText())) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan, nomor telepon harus terdiri dari minimal 10 maksimal 12 digit dan hanya angka.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         // Memanggil metode addEmployee untuk menambahkan data karyawan
@@ -486,7 +522,7 @@ public class employee extends javax.swing.JFrame {
         // Memeriksa apakah penambahan data berhasil atau tidak
         if (isSuccess) {
             // set id pada inputan dengan nilai yang sudah ditentukan
-            inputID.setText(employee.lastEmployeeID());
+            inputID.setText("K" + employee.lastEmployeeID());
 
             core.dataTable(columnNames, column, tableModel, tableEmployee, query);
 
@@ -521,6 +557,12 @@ public class employee extends javax.swing.JFrame {
                 || gender.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Gagal menyimpan, masih ada field kosong.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
+        } else if (!validator.isValidInput(inputName.getText())) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan, field nama tidak boleh dimasukkan selain huruf!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        } else if (!validator.isValidPhoneNumber(inputPhoneNumber.getText())) {
+            JOptionPane.showMessageDialog(null, "Gagal menyimpan, nomor telepon harus terdiri dari minimal 10 maksimal 12 digit dan hanya angka.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
 
         // Memanggil metode addEmployee untuk menambahkan data karyawan
@@ -538,7 +580,7 @@ public class employee extends javax.swing.JFrame {
         // Memeriksa apakah perubahan data berhasil atau tidak
         if (isSuccess) {
             // set id pada inputan dengan nilai yang sudah ditentukan
-            inputID.setText(employee.lastEmployeeID());
+            inputID.setText("K" + employee.lastEmployeeID());
 
             core.dataTable(columnNames, column, tableModel, tableEmployee, query);
 
@@ -570,7 +612,7 @@ public class employee extends javax.swing.JFrame {
             // Memeriksa apakah penghapusan data berhasil atau tidak
             if (isSuccess) {
                 // set id pada inputan dengan nilai yang sudah ditentukan
-                inputID.setText(employee.lastEmployeeID());
+                inputID.setText("K" + employee.lastEmployeeID());
 
                 core.dataTable(columnNames, column, tableModel, tableEmployee, query);
 
@@ -631,7 +673,7 @@ public class employee extends javax.swing.JFrame {
         btnSave.setEnabled(true);
 
         // set id pada inputan dengan nilai yang sudah ditentukan
-        inputID.setText(employee.lastEmployeeID());
+        inputID.setText("K" + employee.lastEmployeeID());
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -656,6 +698,18 @@ public class employee extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        core.search(inputKeyword.getText(), columnNames, column, tableModel, tableEmployee, query);
+        
+        core.addPlaceholder(inputKeyword, "Cari data karyawan menggunakan id");
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
+        String file_name = "src/report/reportEmployee.jasper";
+        
+        core.printReport(file_name);
+    }//GEN-LAST:event_btnPrintActionPerformed
+
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -679,6 +733,7 @@ public class employee extends javax.swing.JFrame {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSearch;
     private javax.swing.JComboBox<String> comboBranch;

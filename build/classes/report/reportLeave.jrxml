@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Leave Report" language="groovy" pageWidth="595" pageHeight="700" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e93ded2b-d004-4162-b227-3e6091e9ce0a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT l.id, l.date1, l.date2, l.employee_id, e.name AS name, o.name AS occupation, d.name AS department, l.note
+FROM javadesk_app.leave AS l
+JOIN employee AS e
+ON l.employee_id = e.id
+JOIN occupation AS o
+ON e.occ_id = o.id
+JOIN department AS d
+ON e.dept_id = d.id
+WHERE l.id = $P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date1" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date2" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="employee_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="occupation" class="java.lang.String"/>
+	<field name="department" class="java.lang.String"/>
+	<field name="note" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="79" uuid="e96b1452-456b-40c5-896e-4b677ba96b54"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="d4609869-261b-4c08-8904-6391affaf203"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Form Permohonan Cuti]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="86" uuid="9b0f6476-be23-4edd-a2ad-5f5328c25681"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Kepada Yth. Manajer HRD
+di tempat
+Dengan hormat,
+Saya yang bertanda tangan dibawah ini :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="0" width="54" height="22" uuid="7261d8d7-47ff-4d48-a76d-1ed8c865aa42"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[No.Doc]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="0" width="105" height="22" uuid="5c7a931d-9c2b-4d9d-a7f9-a96a238c897b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="105" splitType="Stretch">
+			<staticText>
+				<reportElement x="31" y="9" width="130" height="22" uuid="ddf57c8d-a311-400d-b551-958806a16975"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Nama			:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="31" width="130" height="22" uuid="49293f4f-0f99-4b01-b935-33b7289fc56d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ID Karyawan	:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="53" width="130" height="22" uuid="4046bd59-1c47-4ca4-9fbe-930719445596"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jabatan		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="75" width="130" height="22" uuid="62fc1774-1842-4293-a4f6-50eeedf10daa"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Divisi			:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="161" y="9" width="200" height="22" uuid="e66680b8-e230-4416-8d4d-08059a800747"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="31" width="200" height="22" uuid="edc5c284-ce02-4346-9ff5-9e6dacfc2c84"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="53" width="200" height="22" uuid="cadb8e11-b34e-4b62-895c-fc295f29327e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{occupation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="75" width="200" height="22" uuid="b7f72be3-cdb7-448c-9084-d200695a2370"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="174" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="14" width="555" height="22" uuid="006bcf54-b4df-437a-b9a0-c34fdcf01dec"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Bermaksud untuk mengajukan permohonan cuti sebagai berikut :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="68" width="130" height="22" uuid="fd1534ef-817f-4891-99f5-7a17db9b92d6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sampai		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="46" width="130" height="22" uuid="90a7a554-5b36-4b7e-b6eb-301fe8b7f37e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dari			:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="90" width="130" height="22" uuid="b4f6441c-2408-46ba-ac3e-732925ae3f86"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Keperluan		:]]></text>
+			</staticText>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement x="161" y="46" width="200" height="22" uuid="070be78d-2491-432c-b0fc-edae6d753f2b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE, dd MMMMM yyyy">
+				<reportElement x="161" y="68" width="200" height="22" uuid="84483ae9-e427-46e4-bf16-6e65fb35f00b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="161" y="90" width="200" height="74" uuid="699a345c-bf23-4ee7-ad93-e880370cf882"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="69" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="22" uuid="010bd8a1-f545-4e99-92c7-7b5b53f058ea"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Demikian surat permohonan cuti ini saya buat.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="51" height="22" uuid="9d01fe93-b641-4689-bcc5-9dcea36c06af"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jakarta, ]]></text>
+			</staticText>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="51" y="22" width="100" height="22" uuid="d93db7f8-8edc-40a3-9a61-e6b58392e0b0"/>
+				<textElement>
+					<font fontName="Open Sans" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement x="15" y="0" width="94" height="22" uuid="5c47c920-8286-48cc-97e7-25bd16140349"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hormat saya,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="0" width="94" height="22" uuid="95eaf6fc-dd1f-4f78-8810-7c059c5bd6ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Mengetahui]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="86" width="94" height="22" uuid="bd84360a-02ef-403a-b5ff-a1c8c41493c2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(Karyawan)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="86" width="107" height="22" uuid="2f7bc870-2f5a-4e0c-aba0-c2ab80b2a922"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(Manajer Divisi)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="438" y="86" width="107" height="22" uuid="99a421fc-fcc9-4d47-ab47-ca26bac1f91a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(Manajer HR)]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -4,7 +4,7 @@ public class InputValidator {
 
     public boolean isValidPhoneNumber(String phoneNumber) {
         // Contoh validasi nomor telepon: harus terdiri dari 12 digit dan hanya angka
-        return phoneNumber.matches("\\d{12}");
+        return phoneNumber.matches("\\d{10,12}");
     }
 
     public boolean isValidUsername(String username) {
@@ -19,7 +19,7 @@ public class InputValidator {
 
     public boolean isValidInput(String... inputs) {
         for (String input : inputs) {
-            if (!input.matches("^[a-zA-Z]*$")) {
+            if (!input.matches("^[a-zA-Z\\s]*$")) {
                 return false; // Jika salah satu input tidak memenuhi kondisi, kembalikan false
             }
         }

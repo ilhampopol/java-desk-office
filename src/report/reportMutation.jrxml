@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mutation Report" language="groovy" pageWidth="595" pageHeight="800" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5f05ff76-6345-4a8f-8a1c-2dd7a731e557">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT m.id,date,employee_id,e.name AS name, o.name AS occupation,old_branch,new_branch
+FROM mutation AS m
+JOIN employee AS e
+ON m.employee_id = e.id
+JOIN occupation AS o
+ON e.occ_id = o.id
+WHERE m.id = $P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="employee_id" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="occupation" class="java.lang.String"/>
+	<field name="old_branch" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="new_branch" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="555" height="79" uuid="0fe6694a-3066-4084-8ab7-531890fa6993"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="8f945278-3e1f-47f0-85ea-48d860723eec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="30" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Surat Mutasi Kerja]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="396" y="0" width="54" height="22" uuid="8e1cc567-528e-486c-832a-e088771b6e4f"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[No.Doc]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="0" width="105" height="22" uuid="97aa4c4b-3196-453a-b7ea-e05427b920c2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMMM yyyy">
+				<reportElement x="53" y="0" width="100" height="22" uuid="0b31436b-e1b6-4d6e-a8d5-9ca8078731d2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="53" height="22" uuid="031e8f56-1658-4b8e-a8f5-5e19eaa29d6e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Jakarta,]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="22" uuid="9fc25a08-18d3-47c4-97b8-c372d51d1d9e"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Yang bertanda tangan dibawah ini :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="555" height="39" uuid="62c86bcb-3ac0-42ea-93e2-38a6abdf7aae"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama		: Maman Abdurrahman
+Jabatan		: Direktur]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="101" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="22" uuid="c857b542-6e5a-4b92-aa44-1c0d4899e58a"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dengan ini menyampaikan keputusan mutasi kepada :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="130" height="20" uuid="3e200db4-58d7-41de-892c-7ef80a23cf54"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID Karyawan	:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="22" width="200" height="20" uuid="3abb0bc2-b50e-4af9-9cb5-67805652f5ae"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{employee_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="42" width="200" height="20" uuid="65918e1d-1411-4a34-9534-e5600f3c2a36"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="61" width="200" height="20" uuid="73237585-5859-471e-8ea9-e2523dd24d20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{occupation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="81" width="200" height="20" uuid="50ff6bd4-db1d-4d51-83e1-5f1aa21dcb33"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{old_branch}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="42" width="130" height="20" uuid="02cd9dc6-f543-499c-849b-5d4308cc6686"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nama		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="61" width="130" height="20" uuid="09e6c025-7e07-46dd-a32f-c709e474541c"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Jabatan		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="81" width="130" height="20" uuid="275b6189-1f95-476e-9f58-53cc9f8dbfeb"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cabang Baru	:]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="84" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="22" uuid="0bc1d616-0aa8-4a1d-b878-52c1863374eb"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dipindah pada lokasi kerja baru :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="22" width="130" height="22" uuid="4a779518-df2b-4d29-acb3-03fadbb48e38"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cabang Baru	:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="130" y="22" width="200" height="22" uuid="7cc099da-0ebc-42ac-8c79-8a4052ce6c61"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{new_branch}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="287" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="61" uuid="311e7813-683f-4d58-8262-4eecbd638619"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Keputusan ini atas kesepakatan bersama antar dua pihak. Dimohon karyawan menyelesaikan urusan dengan baik di cabang lama dan menyiapkan segala sesuatu dengan baik ke cabang yang baru.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="83" width="555" height="44" uuid="4c191203-dd48-4bb4-a47f-18e6a4b1265c"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Demikian surat mutasi kerja ini disampaikan dengan sebenarnya untuk digunakan sebagaimana mestinya.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="433" y="196" width="62" height="22" uuid="87ce246d-d85c-4ce1-b7ac-c933dbe086bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Direktur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="386" y="265" width="169" height="22" uuid="bf81e9bd-a5f3-4211-b83e-c6af60084b3f"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Open Sans" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(Maman Abdurrahman)]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

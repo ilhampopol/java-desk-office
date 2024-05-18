@@ -15,10 +15,11 @@ public class Employee {
     Connection db = new database().connect();
     PreparedStatement stmt;
     ResultSet result;
+    String query;
 
     public List<String[]> getAllEmployee() {
         List<String[]> employees = new ArrayList<>();
-        String query = "SELECT e.id,e.name,address,phone_number,gender,o.name AS occupation,d.name AS department,b.name AS branch,status FROM employee AS e JOIN occupation AS o ON e.occ_id = o.id JOIN department AS d ON e.dept_id = d.id JOIN branch as b ON e.branch_id = b.id WHERE status = 'AKTIF'";
+        query = "SELECT e.id,e.name,address,phone_number,gender,o.name AS occupation,d.name AS department,b.name AS branch,status FROM employee AS e JOIN occupation AS o ON e.occ_id = o.id JOIN department AS d ON e.dept_id = d.id JOIN branch as b ON e.branch_id = b.id WHERE status = 'AKTIF'";
 
         try {
             stmt = db.prepareStatement(query);
@@ -46,7 +47,7 @@ public class Employee {
     }
 
     public String lastEmployeeID() {
-        String query = "SELECT id FROM employee ORDER BY id DESC LIMIT 1";
+        query = "SELECT id FROM employee ORDER BY id DESC LIMIT 1";
 
         try {
             stmt = db.prepareStatement(query);
@@ -64,14 +65,14 @@ public class Employee {
             // Cek apakah ada data yang ditemukan
             if (result.next()) {
                 // Ambil 3 angka terakhir dari ID
-            String lastID = result.getString("id").substring(Math.max(0, result.getString("id").length() - 3));
+                String lastID = result.getString("id").substring(Math.max(0, result.getString("id").length() - 3));
 
-            // Konversi menjadi integer, tambahkan 1, dan format kembali ke string dengan 3 digit
-            int nextID = Integer.parseInt(lastID) + 1;
-            String formattedNextID = String.format("%03d", nextID);
+                // Konversi menjadi integer, tambahkan 1, dan format kembali ke string dengan 3 digit
+                int nextID = Integer.parseInt(lastID) + 1;
+                String formattedNextID = String.format("%03d", nextID);
 
-            // Gabungkan dengan tanggal dan kembalikan
-            return formattedDate + formattedNextID;
+                // Gabungkan dengan tanggal dan kembalikan
+                return formattedDate + formattedNextID;
             } else {
                 // Jika tidak ada, kembalikan nilai "001"
                 return formattedDate + "001";
@@ -83,7 +84,7 @@ public class Employee {
     }
 
     public boolean addEmployee(String id, String name, String address, String phoneNumber, String gender, int occupation, int department, int branch) {
-        String query = "INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        query = "INSERT INTO employee VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             stmt = db.prepareStatement(query);
@@ -108,7 +109,7 @@ public class Employee {
     }
 
     public boolean updateEmployee(String id, String name, String address, String phoneNumber, String gender, int occupation, int department, int branch) {
-        String query = "UPDATE employee SET name = ?, address = ?, phone_number = ?, gender = ?, occ_id = ?, dept_id = ?, branch_id = ? WHERE id =" + id;
+        query = "UPDATE employee SET name = ?, address = ?, phone_number = ?, gender = ?, occ_id = ?, dept_id = ?, branch_id = ? WHERE id = ?";
 
         try {
             stmt = db.prepareStatement(query);
@@ -120,6 +121,7 @@ public class Employee {
             stmt.setInt(5, occupation);
             stmt.setInt(6, department);
             stmt.setInt(7, branch);
+            stmt.setString(8, id);
 
             stmt.executeUpdate();
 
@@ -131,10 +133,12 @@ public class Employee {
     }
 
     public boolean deactivateEmployee(String id) {
-        String query = "UPDATE employee SET status = 'NON-AKTIF' WHERE id = " + id;
+        query = "UPDATE employee SET status = 'NON-AKTIF' WHERE id = ?";
 
         try {
             stmt = db.prepareStatement(query);
+
+            stmt.setString(1, id);
 
             stmt.executeUpdate();
 
@@ -145,4 +149,27 @@ public class Employee {
         }
     }
 
+    public String[] searchEmployee(String id) {
+        query = "SELECT e.name,o.name AS occ_name, b.name AS branch_name FROM employee AS e JOIN occupation AS o ON e.occ_id = o.id JOIN branch AS b ON e.branch_id = b.id WHERE e.id= ?";
+
+        try {
+            stmt = db.prepareStatement(query);
+
+            stmt.setString(1, id);
+
+            result = stmt.executeQuery();
+
+            if (result.next()) {
+                String employeeName = result.getString("name");
+                String occupationName = result.getString("occ_name");
+                String branchName = result.getString("branch_name");
+
+                return new String[] {employeeName, occupationName, branchName};
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
 }

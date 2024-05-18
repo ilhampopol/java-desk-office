@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class branch extends javax.swing.JFrame {
-    
+
     Core core = new Core();
     InputValidator validator = new InputValidator();
     DefaultTableModel tableModel = new DefaultTableModel();
@@ -18,6 +18,7 @@ public class branch extends javax.swing.JFrame {
         initComponents();
 
         core.dataTable(columnNames, column, tableModel, tableBranch, query);
+        core.addPlaceholder(inputBranch, "Masukkan nama cabang");
 
         inputID.setText(core.lastID("branch"));
     }
@@ -39,6 +40,7 @@ public class branch extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         panelTable = new javax.swing.JPanel();
@@ -116,6 +118,19 @@ public class branch extends javax.swing.JFrame {
             }
         });
 
+        btnDelete.setBackground(new java.awt.Color(231, 76, 60));
+        btnDelete.setFont(new java.awt.Font("Open Sans Medium", 0, 14)); // NOI18N
+        btnDelete.setForeground(new java.awt.Color(255, 255, 255));
+        btnDelete.setText("Delete");
+        btnDelete.setBorder(null);
+        btnDelete.setBorderPainted(false);
+        btnDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelInputLayout = new javax.swing.GroupLayout(panelInput);
         panelInput.setLayout(panelInputLayout);
         panelInputLayout.setHorizontalGroup(
@@ -125,9 +140,11 @@ public class branch extends javax.swing.JFrame {
                 .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelInputLayout.createSequentialGroup()
                         .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
+                        .addGap(23, 23, 23)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelInputLayout.createSequentialGroup()
                         .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +178,8 @@ public class branch extends javax.swing.JFrame {
                 .addGroup(panelInputLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
 
@@ -314,7 +332,7 @@ public class branch extends javax.swing.JFrame {
         if (inputBranch.getText().isBlank() || inputAddress.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Field tidak boleh kosong!", "Failed to save", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (!validator.isValidInput(inputBranch.getText(), inputAddress.getText())) {
+        } else if (!validator.isValidInput(inputBranch.getText())) {
             JOptionPane.showMessageDialog(null, "Data yang dimasukkan tidak valid!", "Failed to save", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -327,7 +345,7 @@ public class branch extends javax.swing.JFrame {
         core.dataTable(columnNames, column, tableModel, tableBranch, query);
 
         inputID.setText(core.lastID("branch"));
-        core.emptyInput(inputBranch);
+        core.addPlaceholder(inputBranch, "Masukkan nama cabang");
         core.emptyInputArea(inputAddress);
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -335,14 +353,14 @@ public class branch extends javax.swing.JFrame {
         if (inputBranch.getText().isBlank() || inputAddress.getText().isBlank()) {
             JOptionPane.showMessageDialog(null, "Field tidak boleh kosong!", "Failed to change", JOptionPane.ERROR_MESSAGE);
             return;
-        } else if (!validator.isValidInput(inputBranch.getText(), inputAddress.getText())) {
+        } else if (!validator.isValidInput(inputBranch.getText())) {
             JOptionPane.showMessageDialog(null, "Data yang dimasukkan tidak valid!", "Failed to save", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String[] columns = {"name", "address"};
         String[] data = {inputBranch.getText(), inputAddress.getText()};
-        String condition = "id = " + inputID.getText();
+        String condition = "id = '" + inputID.getText() + "'";
         core.updateEntity("branch", columns, data, condition);
 
         JOptionPane.showMessageDialog(null, "Data berhasil diubah!", "Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -350,7 +368,7 @@ public class branch extends javax.swing.JFrame {
         core.dataTable(columnNames, column, tableModel, tableBranch, query);
 
         inputID.setText(core.lastID("branch"));
-        core.emptyInput(inputBranch);
+        core.addPlaceholder(inputBranch, "Masukkan nama cabang");
         core.emptyInputArea(inputAddress);
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -358,7 +376,7 @@ public class branch extends javax.swing.JFrame {
         core.dataTable(columnNames, column, tableModel, tableBranch, query);
 
         inputID.setText(core.lastID("branch"));
-        core.emptyInput(inputBranch);
+        core.addPlaceholder(inputBranch, "Masukkan nama cabang");
         core.emptyInputArea(inputAddress);
 
         btnSave.setEnabled(true);
@@ -371,12 +389,51 @@ public class branch extends javax.swing.JFrame {
         String rowData2 = tableModel.getValueAt(bar, 1).toString();
         String rowData3 = tableModel.getValueAt(bar, 2).toString();
 
+        core.removePlaceholder(inputBranch);
+
         inputID.setText(rowData1);
         inputBranch.setText(rowData2);
         inputAddress.setText(rowData3);
 
         btnSave.setEnabled(false);
     }//GEN-LAST:event_tableBranchMouseClicked
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int choice = JOptionPane.showConfirmDialog(null, "Apakah anda yakin akan menghapus data cabang ini?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (choice == JOptionPane.YES_OPTION) {
+            // Memanggil metode deleteEmployee untuk menghapus data karyawan
+            boolean isSuccess = core.deleteEntity("branch", inputID.getText());
+
+            // Memeriksa apakah penghapusan data berhasil atau tidak
+            if (isSuccess) {
+                // set id pada inputan dengan nilai yang sudah ditentukan
+                inputID.setText(core.lastID("branch"));
+
+                core.dataTable(columnNames, column, tableModel, tableBranch, query);
+                core.emptyInput(inputBranch);
+                core.emptyInputArea(inputAddress);
+
+                // Jika berhasil, tampilkan pesan berhasil
+                JOptionPane.showMessageDialog(null, "Data cabang berhasil dihapus!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                core.addPlaceholder(inputBranch, "Masukkan nama cabang");
+                btnSave.requestFocus();
+                btnSave.setEnabled(true);
+            } else {
+                core.dataTable(columnNames, column, tableModel, tableBranch, query);
+                core.emptyInput(inputBranch);
+                core.emptyInputArea(inputAddress);
+
+                // Jika gagal, tampilkan pesan gagal
+                JOptionPane.showMessageDialog(null, "Gagal menghapus data cabang!", "Error", JOptionPane.ERROR_MESSAGE);
+
+                core.addPlaceholder(inputBranch, "Masukkan nama cabang");
+                btnSave.requestFocus();
+                btnSave.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -398,6 +455,7 @@ public class branch extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnSave;

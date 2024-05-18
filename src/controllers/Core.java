@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +18,12 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Core {
 
@@ -24,6 +31,7 @@ public class Core {
     Connection db = new database().connect();
     PreparedStatement stmt;
     ResultSet result;
+    String query;
     StringBuilder queryBuilder;
 
     public void dataTable(Object[] columnNames, Object[] column, DefaultTableModel tableModel, JTable table, String query) {
@@ -33,7 +41,7 @@ public class Core {
         try {
             stmt = db.prepareStatement(query);
             result = stmt.executeQuery();
-            
+
             tableModel.setRowCount(0);
 
             while (result.next()) {
@@ -75,7 +83,7 @@ public class Core {
             result.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Gagal memuat data Combo Box", "Error", JOptionPane.ERROR_MESSAGE);
-            
+
             System.out.print(e.getMessage());
         }
 
@@ -139,7 +147,7 @@ public class Core {
     }
 
     public String lastID(String table) {
-        String query = "SELECT id FROM " + table + " ORDER BY id DESC LIMIT 1";
+        query = "SELECT id FROM " + table + " ORDER BY id DESC LIMIT 1";
         int intID;
         String lastID = "";
 
@@ -154,11 +162,51 @@ public class Core {
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Gagal memuat data ID", "Error", JOptionPane.ERROR_MESSAGE);
-            
+
             System.out.print(e.getMessage());
         }
 
         return lastID;
+    }
+
+    public String lastIdByDate(String table, String date) {
+        query = "SELECT id FROM " + table + " WHERE id LIKE '%" + date + "%'" + " ORDER BY id DESC LIMIT 1";
+        String id, constantPart, numericPart, newNumericPart, newID = "";
+
+        try {
+            stmt = db.prepareStatement(query);
+            result = stmt.executeQuery();
+
+            if (result.next()) {
+                id = result.getString("id");
+
+                // Bagian konstan
+                constantPart = id.substring(1, id.length() - 3);
+
+                // Bagian angka yang ingin ditambahkan
+                numericPart = id.substring(id.length() - 3);
+
+                // Mengubah string menjadi integer
+                int numericValue = Integer.parseInt(numericPart);
+
+                // Menambahkan 1
+                numericValue++;
+
+                // Format angka dengan panjang tetap 3 digit dan tambahkan 0 jika perlu
+                newNumericPart = String.format("%03d", numericValue);
+
+                // Gabungkan kembali dengan bagian konstan
+                newID = constantPart + newNumericPart;
+            } else {
+                newID = date + "001";
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Gagal memuat data ID", "Error", JOptionPane.ERROR_MESSAGE);
+
+            System.out.print(e.getMessage());
+        }
+
+        return newID;
     }
 
     public boolean addEntity(String table, String[] values) {
@@ -228,6 +276,152 @@ public class Core {
             System.out.println("Error: " + e.getMessage());
 
             return false; // Gagal memperbarui data
+        }
+    }
+
+    public boolean deleteEntity(String table, String id) {
+        query = "DELETE FROM " + table + " WHERE id = ?";
+
+        try {
+            stmt = db.prepareStatement(query);
+            // Set parameter
+            stmt.setString(1, id);
+
+            // Jalankan query
+            int rowsAffected = stmt.executeUpdate();
+
+            // Periksa apakah baris telah dihapus
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            // Tangani error dengan menampilkan pesan kesalahan
+            System.out.println("Gagal menghapus data: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void search(String id, Object[] columnNames, Object[] column, DefaultTableModel tableModel, JTable table, String query) {
+        query += "AND e.id LIKE '%" + id + "%'";
+
+        dataTable(columnNames, column, tableModel, table, query);
+    }
+
+    public void searchByDate(Object[] param, Object[] columnNames, Object[] column, DefaultTableModel tableModel, JTable table, String query) {
+        String id = param[0].toString();
+        String date1 = param[1].toString();
+        String date2 = param[2].toString();
+
+        if (id.isBlank()) {
+            query = "SELECT a.date, a.employee_id, e.name AS name, a.in, a.out "
+                    + "FROM attendance AS a "
+                    + "JOIN employee AS e "
+                    + "ON a.employee_id = e.id "
+                    + "WHERE a.date BETWEEN '" + date1 + "' AND '" + date2 + "' "
+                    + "ORDER BY a.date";
+        } else {
+            query = "SELECT a.date, a.employee_id, e.name AS name, a.in, a.out "
+                    + "FROM attendance AS a "
+                    + "JOIN employee AS e "
+                    + "ON a.employee_id = e.id "
+                    + "WHERE a.date BETWEEN '" + date1 + "' AND '" + date2 + "' AND e.id LIKE '%" + id + "%' "
+                    + "ORDER BY a.date";
+        }
+
+        dataTable(columnNames, column, tableModel, table, query);
+    }
+
+    public boolean checkClockIn(String employee_id, String date) {
+        query = "SELECT employee_id FROM attendance WHERE employee_id = '" + employee_id + "' AND date = '" + date + "'";
+
+        try {
+            stmt = db.prepareStatement(query);
+            result = stmt.executeQuery();
+
+            if (result.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean checkClockOut(String employee_id, String date) {
+        query = "SELECT employee_id FROM attendance WHERE attendance.out = '-' AND employee_id = '" + employee_id + "' AND date = '" + date + "'";
+
+        try {
+            stmt = db.prepareStatement(query);
+            result = stmt.executeQuery();
+
+            if (result.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updateBranch(String id, int values) {
+        query = "UPDATE employee SET branch_id = " + values + " WHERE id = '" + id + "'";
+
+        try {
+            stmt = db.prepareStatement(query);
+            stmt.executeUpdate();
+
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public void printReport(String file_name) {
+        try {
+            HashMap<String, Object> parameters = new HashMap<>();
+            File report_file = new File(file_name);
+            JasperReport jasper_report = (JasperReport) JRLoader.loadObject(report_file.getPath());
+            JasperPrint jasper_print = JasperFillManager.fillReport(jasper_report, parameters, db);
+
+            JasperViewer.viewReport(jasper_print, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }
+
+    public void printReportByID(Object[] data) {
+        try {
+            HashMap<String, Object> parameters = new HashMap<>();
+            String file_name = data[0].toString();
+            parameters.put("id", data[1]);
+            
+            // Memeriksa panjang array untuk memastikan date1 dan date2 ada
+            if (data.length > 2) {
+                parameters.put("date1", data[2]);
+            } else {
+                // Menangani kasus ketika date1 tidak ada
+                parameters.put("date1", null); // atau gunakan nilai default yang sesuai
+            }
+
+            if (data.length > 3) {
+                parameters.put("date2", data[3]);
+            } else {
+                // Menangani kasus ketika date2 tidak ada
+                parameters.put("date2", null); // atau gunakan nilai default yang sesuai
+            }
+            
+            File report_file = new File(file_name);
+            JasperReport jasper_report = (JasperReport) JRLoader.loadObject(report_file.getPath());
+            JasperPrint jasper_print = JasperFillManager.fillReport(jasper_report, parameters, db);
+
+            JasperViewer.viewReport(jasper_print, false);
+            JasperViewer.setDefaultLookAndFeelDecorated(true);
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }
 }
